@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoChain 24 — Carbon Auditor & Supply Chain Console</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="logo-icon">🍀</span>
+                <h2>EcoChain 24</h2>
+            </div>
+            <nav class="nav-links">
+                <a href="#overview" class="active" onclick="switchTab('overview')">📊 Overview</a>
+                <a href="#suppliers" onclick="switchTab('suppliers')">🏢 Suppliers Audit</a>
+                <a href="#anomalies" onclick="switchTab('anomalies')">⚠️ Anomalies</a>
+                <a href="#compliance" onclick="switchTab('compliance')">⚖️ Compliance</a>
+                <a href="#recommendations" onclick="switchTab('recommendations')">💡 Recommendations</a>
+                <a href="#audit-log" onclick="switchTab('audit-log')">🛡️ Audit Log</a>
+            </nav>
+            <div class="sidebar-footer">
+                <span class="status-indicator online"></span>
+                <span>Agent Bus Connected</span>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard Frame -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="dashboard-header">
+                <div>
+                    <h1>Audit Console</h1>
+                    <p class="subtitle">Multi-Agent Supply Chain Carbon Audit Registry</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="verifyAuditTrail()">🛡️ Verify Hash Chain</button>
+                    <button class="btn btn-primary" onclick="triggerPipeline()">⚙️ Run Pipeline</button>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section id="overview-tab" class="dashboard-tab-content active-tab">
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card glass">
+                        <div class="metric-info">
+                            <span class="label">Total Location CO₂e</span>
+                            <h3 class="value" id="stat-co2-loc">0.00 t</h3>
+                        </div>
+                        <div class="metric-badge-icon blue">🌎</div>
+                    </div>
+                    <div class="metric-card glass">
+                        <div class="metric-info">
+                            <span class="label">Total Market CO₂e</span>
+                            <h3 class="value" id="stat-co2-mkt">0.00 t</h3>
+                        </div>
+                        <div class="metric-badge-icon green">⚡</div>
+                    </div>
+                    <div class="metric-card glass">
+                        <div class="metric-info">
+                            <span class="label">Data Coverage</span>
+                            <h3 class="value" id="stat-coverage">0.0%</h3>
+                        </div>
+                        <div class="metric-badge-icon purple">📊</div>
+                    </div>
+                    <div class="metric-card glass">
+                        <div class="metric-info">
+                            <span class="label">Confidence Index</span>
+                            <h3 class="value" id="stat-confidence">0.00</h3>
+                        </div>
+                        <div class="metric-badge-icon orange">🛡️</div>
+                    </div>
+                    <div class="metric-card glass">
+                        <div class="metric-info">
+                            <span class="label">Active Anomalies</span>
+                            <h3 class="value" id="stat-anomalies" style="color: #f43f5e;">0</h3>
+                        </div>
+                        <div class="metric-badge-icon red">⚠️</div>
+                    </div>
+                    <div class="metric-card glass">
+                        <div class="metric-info">
+                            <span class="label">Compliance Gaps</span>
+                            <h3 class="value" id="stat-gaps" style="color: #fbbf24;">0</h3>
+                        </div>
+                        <div class="metric-badge-icon yellow">⚖️</div>
+                    </div>
+                </div>
+
+                <!-- Split Layout: Suppliers & Anomaly summary -->
+                <div class="dashboard-split">
+                    <div class="split-card glass">
+                        <h3>🏢 Supplier Audit Scores</h3>
+                        <div class="table-container">
+                            <table>
+                                th
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Tier</th>
+                                        <th>Quality</th>
+                                        <th>Intensity</th>
+                                        <th>Trend</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="summary-suppliers-table">
+                                    <tr><td colspan="5" class="empty-state">No suppliers audited yet. Run the pipeline.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="split-card glass">
+                        <h3>⚠️ Recent Anomalies</h3>
+                        <div class="anomaly-feed" id="summary-anomalies-list">
+                            <div class="empty-state">No anomalies logged yet. Run the pipeline.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Suppliers Tab -->
+            <section id="suppliers-tab" class="dashboard-tab-content">
+                <div class="tab-card glass">
+                    <h2>🏢 Longitudinal Supplier Profiles</h2>
+                    <p class="card-desc">Supplier sustainability scorecard mapping rating changes and emissions over multiple quarters.</p>
+                    <div class="table-container large-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Supplier ID</th>
+                                    <th>Supplier Name</th>
+                                    <th>Assigned Tier</th>
+                                    <th>Data Quality score</th>
+                                    <th>Emission Intensity</th>
+                                    <th>Disclosure Trend</th>
+                                    <th>Last Disclosure</th>
+                                </tr>
+                            </thead>
+                            <tbody id="suppliers-table-body">
+                                <tr><td colspan="7" class="empty-state">No profiles found. Run the pipeline.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Anomalies Tab -->
+            <section id="anomalies-tab" class="dashboard-tab-content">
+                <div class="tab-card glass">
+                    <h2>⚠️ Active Anomaly Feed</h2>
+                    <p class="card-desc">Live alerts from the Anomaly Detection Agent checking statistical thresholds, duplicates, and interpolation checks.</p>
+                    <div class="anomaly-list-full" id="anomalies-table-body">
+                        <div class="empty-state">No active anomalies in this reporting cycle.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Compliance Tab -->
+            <section id="compliance-tab" class="dashboard-tab-content">
+                <div class="tab-card glass">
+                    <h2>⚖️ Regulatory Framework Disclosure Checklist</h2>
+                    <p class="card-desc">Tracks gap statuses and estimations of regulatory fine exposures across leading global framework schemas.</p>
+                    <div class="table-container large-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Framework</th>
+                                    <th>Requirement ID</th>
+                                    <th>Status</th>
+                                    <th>Missing Data / Detail</th>
+                                    <th>Risk level</th>
+                                    <th>Est Fine (USD)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="compliance-table-body">
+                                <tr><td colspan="6" class="empty-state">No compliance runs audited.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recommendations Tab -->
+            <section id="recommendations-tab" class="dashboard-tab-content">
+                <div class="tab-card glass">
+                    <h2>💡 Mitigation Recommendations</h2>
+                    <p class="card-desc">Strategist recommendations of carbon reduction levers based on verified data hotspots.</p>
+                    <div class="table-container large-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Opportunity category</th>
+                                    <th>Est CO₂e Saving (t/yr)</th>
+                                    <th>Implementation Effort</th>
+                                    <th>Est Cost Delta</th>
+                                    <th>Confidence</th>
+                                    <th>Basis (Record IDs)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recommendations-table-body">
+                                <tr><td colspan="6" class="empty-state">No optimization opportunities computed yet. Run pipeline.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audit Log Tab -->
+            <section id="audit-log-tab" class="dashboard-tab-content">
+                <div class="tab-card glass">
+                    <div class="flex-title-row">
+                        <div>
+                            <h2>🛡️ Cryptographic Append-Only Audit Trail</h2>
+                            <p class="card-desc">Immutable verification trail. Every agent execution, normalization, and conflict resolution is chained via SHA-256 hashes.</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="exportAuditTrail()">📥 Export CSV</button>
+                    </div>
+                    <div class="audit-log-terminal" id="audit-log-body">
+                        <!-- Typewriter log lines will print here -->
+                        <div class="terminal-line">[SYSTEM]: Terminal initialized. Ready to fetch agent logs.</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Anomaly Resolution Modal -->
+    <div class="modal" id="resolution-modal">
+        <div class="modal-content glass">
+            <h2>Resolve Audit Anomaly</h2>
+            <p>Enter details of the override adjustment. The original record remains unchanged; the correction is logged as a separate audit entry.</p>
+            <input type="hidden" id="modal-anomaly-id">
+            <div class="form-group">
+                <label for="reason-code">Reason Code:</label>
+                <select id="reason-code" class="form-control">
+                    <option value="verified_invoice_override">Verified invoice uploaded (Manual validation)</option>
+                    <option value="meter_read_calibration">Meter calibration confirmation</option>
+                    <option value="data_entry_correction">Data entry correction (ERP reconciled)</option>
+                    <option value="sustainability_officer_signoff">Sustainability Director signoff</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="approver-name">Authorized Approver:</label>
+                <input type="text" id="approver-name" class="form-control" placeholder="E.g., Jane Doe, VP of Sustainability" required>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="submitResolution()">Save Override</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

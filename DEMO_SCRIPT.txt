@@ -1,0 +1,43 @@
+[0:00 - HOOK]
+Hello everyone. Today, sustainability and compliance teams face a massive challenge: tracking carbon footprints across highly complex supply chains while maintaining a legally-defensible audit trail. EcoChain 24 is an autonomous multi-agent carbon auditing system built to address this material risk by making emissions tracking real-time, automated, and fully verifiable.
+
+(pause)
+
+[0:20 - WHAT IT IS]
+Our agent belongs to the environment track. It functions as a complete digital carbon ledger that continuously ingests invoices, shipping manifests, and utility logs, converts them into Scope 1, 2, and 3 emissions figures, and runs validation logic to check for compliance gaps and anomalies.
+
+(pause)
+
+[0:40 - SHOW THE BANNER]
+(show assets/cover_page_banner.png)
+As you can see on the screen, EcoChain 24 integrates modern multi-agent networks, secure validation ledgers, and automated CSRD reporting into one unified platform to turn raw carbon accounting into verified intelligence.
+
+(pause)
+
+[1:00 - ARCHITECTURE]
+(show assets/architecture_diagram.png)
+Let us walk through the system architecture. The entire workflow is conducted by our Orchestrator Agent which coordinates our specialized specialist agents. First, incoming data goes through our Security Checkpoint where we check authorization and scrub data. Next, the Ingestion Agent normalizes invoices, which are calculated by the Calculation Agent. The calculation agent accesses custom emission datasets from our stdio MCP Server. From there, the Supplier Audit Agent aggregates sustainability tier profiles, while the Anomaly Detection Agent runs statistical baseline checks. If anomalies are found, the record is quarantined for human auditor verification. Finally, the Compliance Agent maps results to CSRD and GHG Protocol frameworks, and the Report Agent generates the board summaries.
+
+(pause)
+
+[2:00 - LIVE DEMO]
+(switch to playground at localhost:18081)
+Now let us watch the live demo in the playground interface. Let's input a raw Scope 1 fuel manifest with 1,200 liters of diesel fuel. As I hit run, the orchestrator routes this through security to the Ingestion Agent. The Calculation Agent retrieves the GLEC diesel factor from the MCP server, computing 3.22 metric tons of CO2 equivalent emissions. 
+
+(pause)
+
+Next, let's trigger our automated conflict resolution by inputting a verified disclosure claiming top-tier quality from a Supplier classified as Tier D. The orchestrator immediately flags this mismatch, freezes the record, and notifies the compliance officer. 
+
+(pause)
+
+Finally, we test Scope 2 dual-reporting with a renewable electricity tariff. The Calculation Agent runs both location and market-based calculations side-by-side, outputting 0.00 tons for the market-based disclosure. All of this is generated into our board summary html document.
+
+(pause)
+
+[3:00 - SECURITY & MCP]
+Security is baked into the foundation. Our Security Checkpoint enforces strict least-privilege token access for MCP tools, while the database records every single agent decision in an immutable, cryptographically chained audit ledger. Our MCP Server exposes standardized factor lookup, document parsing, and warning dispatch utilities across the agent network.
+
+(pause)
+
+[3:30 - IMPACT / CLOSE]
+By shifting carbon auditing from a retrospective spreadsheet task to an always-on automated workflow, EcoChain 24 helps sustainability officers, external auditors, and operations managers slash cycle times by 80 percent and build bulletproof disclosures. EcoChain 24 makes carbon visible, auditable, and legally-defensible. Thank you.

@@ -1,0 +1,17 @@
+[project]
+name = "ecochain"
+version = "0.1.0"
+description = "EcoChain 24 multi-agent carbon auditing flow"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "google-adk[gcp]>=2.0.0,<3.0.0",
+    "mcp>=1.0.0,<2.0.0",
+    "fastapi>=0.110,<1.0",
+    "uvicorn>=0.29,<1.0"
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0.0",
+]
