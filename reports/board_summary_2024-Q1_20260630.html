@@ -147,24 +147,24 @@
         </div>
         <div class="meta-box">
             <div>Verification Authority: EcoChain 24 Audit System</div>
-            <div>Data coverage: 100.0% | Avg Confidence: 1.00</div>
+            <div>Data coverage: 100.0% | Avg Confidence: 0.87</div>
         </div>
     </div>
     
     <div class="grid">
         <div class="card">
             <div class="metric-title">Scope 1 (Direct)</div>
-            <div class="metric-value">1340.00</div>
+            <div class="metric-value">3216.00</div>
             <div class="metric-sub">Tonnes CO₂e from fuel combustion</div>
         </div>
         <div class="card">
             <div class="metric-title">Scope 2 (Indirect Grid)</div>
-            <div class="metric-value">350.00</div>
-            <div class="metric-sub">Dual market-based method: 350.00 t CO₂e</div>
+            <div class="metric-value">2035.00</div>
+            <div class="metric-sub">Dual market-based method: 2035.00 t CO₂e</div>
         </div>
         <div class="card">
             <div class="metric-title">Scope 3 (Supply Chain)</div>
-            <div class="metric-value">0.00</div>
+            <div class="metric-value">1200.00</div>
             <div class="metric-sub">Upstream and logistics intensity</div>
         </div>
     </div>
@@ -182,26 +182,26 @@
         <tbody>
             <tr>
                 <td>Scope 1: Fuels & Process</td>
-                <td>1340.0000</td>
-                <td>1340.0000</td>
+                <td>3216.0000</td>
+                <td>3216.0000</td>
                 <td>Physical primary factors</td>
             </tr>
             <tr>
                 <td>Scope 2: Purchased Electricity</td>
-                <td>350.0000</td>
-                <td>350.0000</td>
+                <td>2035.0000</td>
+                <td>2035.0000</td>
                 <td>Location vs. EAC dual reporting</td>
             </tr>
             <tr>
                 <td>Scope 3: Shared Value Chain</td>
-                <td>0.0000</td>
-                <td>0.0000</td>
+                <td>1200.0000</td>
+                <td>1200.0000</td>
                 <td>Physical & EEIO fallback calculations</td>
             </tr>
             <tr style="font-weight: 600; background: rgba(255,255,255,0.02);">
                 <td>Total Footprint</td>
-                <td>1690.0000</td>
-                <td>1690.0000</td>
+                <td>6451.0000</td>
+                <td>6451.0000</td>
                 <td>Aggregated Carbon Inventory</td>
             </tr>
         </tbody>
@@ -236,8 +236,8 @@
             </tr><tr>
                 <td>CSRD_ESRS_E1</td>
                 <td>ESRS-E1-6</td>
-                <td><span class="badge badge-gap">GAP</span></td>
-                <td>Scope 3 categories have no tracking records</td>
+                <td><span class="badge badge-met">MET</span></td>
+                <td>Note: CSRD mapped to market-based scope 2; GHG inventory reports location-based.</td>
             </tr><tr>
                 <td>TCFD</td>
                 <td>TCFD-MET-1</td>
@@ -280,16 +280,22 @@
         </thead>
         <tbody>
             <tr>
-                <td>Supplier sup_beta_steel</td>
+                <td>Alpha Logistics Co</td>
                 <td><span class="badge badge-b">Tier B</span></td>
-                <td>1.00</td>
-                <td>0.3500</td>
+                <td>0.90</td>
+                <td>1.2000</td>
                 <td>stable</td>
             </tr><tr>
-                <td>Supplier sup_alpha_logistics</td>
-                <td><span class="badge badge-b">Tier B</span></td>
-                <td>1.00</td>
-                <td>1.3400</td>
+                <td>Green Energy Corp</td>
+                <td><span class="badge badge-c">Tier C</span></td>
+                <td>0.90</td>
+                <td>6.4750</td>
+                <td>declining</td>
+            </tr><tr>
+                <td>Beta Steel Ltd</td>
+                <td><span class="badge badge-c">Tier C</span></td>
+                <td>0.68</td>
+                <td>153.2160</td>
                 <td>stable</td>
             </tr>
         </tbody>
@@ -309,16 +315,34 @@
         <tbody>
             <tr>
                 <td>Renewable energy procurement</td>
-                <td>350.0</td>
+                <td>2035.0</td>
                 <td>low</td>
                 <td>-1200.00</td>
                 <td>high</td>
+            </tr><tr>
+                <td>Logistics mode and route optimisation</td>
+                <td>900.0</td>
+                <td>medium</td>
+                <td>2500.00</td>
+                <td>medium</td>
+            </tr><tr>
+                <td>Supplier switching</td>
+                <td>610.5</td>
+                <td>high</td>
+                <td>-5000.00</td>
+                <td>medium</td>
+            </tr><tr>
+                <td>Supplier switching</td>
+                <td>964.8</td>
+                <td>high</td>
+                <td>-5000.00</td>
+                <td>medium</td>
             </tr>
         </tbody>
     </table>
 
     <footer>
-        Report Type: BOARD_SUMMARY | Generated: 2026-06-30T18:21:59.881140Z | Data Coverage: 100.0% | Confidence Score: 1.00 | Sources: erp_import, utility_api
+        Report Type: BOARD_SUMMARY | Generated: 2026-06-30T19:04:45.384521Z | Data Coverage: 100.0% | Confidence Score: 0.87 | Sources: parsed_document:beta_steel_invoice.pdf, parsed_document:alpha_shipping_manifest.xlsx, parsed_document:green_energy_bill.pdf
     </footer>
 </body>
 </html>
