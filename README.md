@@ -1,4 +1,4 @@
-# EcoChain 24 — Autonomous Multi-Agent Carbon Intelligence
+# EcoChain 24 — Multi-Agent Supply Chain & Carbon Auditor
 
 ![EcoChain 24 cover banner](assets/cover_page_banner.png)
 
