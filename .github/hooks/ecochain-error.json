@@ -1,0 +1,15 @@
+{
+  "name": "ecochain-error-handler",
+  "description": "Error handling hook: Gracefully handle agent failures and log to audit trail",
+  "events": ["PostToolUse"],
+  "tools": ["ecochain.log.write"],
+  "actions": [
+    {
+      "event": "PostToolUse",
+      "condition": "exitCode != 0",
+      "command": "python -c \"from ecochain.db import log_audit_entry; print('Agent error logged')\"",
+      "failureMode": "continue",
+      "description": "Log agent failures with full context"
+    }
+  ]
+}

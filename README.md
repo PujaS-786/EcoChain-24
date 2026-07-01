@@ -49,6 +49,39 @@ EcoChain 24 is an autonomous hierarchical multi-agent auditing system for Scope 
    ```
    The UI will open at http://localhost:18081.
 
+## 🎯 Use with Antigravity ADK
+
+EcoChain 24 agents are fully integrated with Antigravity ADK. Try these prompts directly in ADK chat:
+
+```
+"Run the Q1 2024 emissions audit"
+"Analyze Beta Steel's carbon performance"
+"Generate carbon reduction strategy"
+"Check GRI 305 and TCFD compliance"
+"Investigate the emissions anomaly"
+```
+
+**Setup**: See [.github/ADK_SETUP.md](.github/ADK_SETUP.md) for complete integration details.
+
+**Available Agents** (registered with ADK):
+- 🎼 **Orchestrator** – Pipeline conductor
+- 📥 **Ingestion** – Data parser
+- ⚙️ **Calculation** – GHG calculator
+- 📋 **Audit** – Quality validator
+- 🔍 **Anomaly** – Deviation detector
+- ✅ **Compliance** – Standards validator
+- 💡 **Recommendation** – Strategy generator
+- 📊 **Report** – Dashboard creator
+
+**Workflows** (prompts available):
+- `run-emissions-audit.prompt.md` – Complete audit pipeline
+- `analyze-supplier.prompt.md` – Supplier deep-dive
+- `carbon-reduction-strategy.prompt.md` – Strategy planning
+- `verify-compliance.prompt.md` – Standards checking
+- `investigate-anomaly.prompt.md` – Anomaly investigation
+
+See [AGENTS.md](AGENTS.md) for agent registry and [copilot-instructions.md](copilot-instructions.md) for workflow guidance.
+
 ## Workflow diagram
 
 ```mermaid

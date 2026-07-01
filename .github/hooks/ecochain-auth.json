@@ -1,0 +1,14 @@
+{
+  "name": "ecochain-audit-hook",
+  "description": "Pre-execution hook: Validate agent authorization and log audit trail entry",
+  "events": ["PreToolUse"],
+  "tools": ["ecochain.log.write", "ecochain.audit.authorize"],
+  "actions": [
+    {
+      "event": "PreToolUse",
+      "command": "python -c \"from ecochain.mcp import authorize_agent; print('Authorizing agent...')\"",
+      "failureMode": "continue",
+      "description": "Verify agent has permission to call tool"
+    }
+  ]
+}

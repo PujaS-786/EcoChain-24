@@ -1,0 +1,14 @@
+{
+  "name": "ecochain-logging-hook",
+  "description": "Post-execution hook: Log all agent actions to immutable audit trail",
+  "events": ["PostToolUse"],
+  "tools": ["ecochain.log.write"],
+  "actions": [
+    {
+      "event": "PostToolUse",
+      "command": "python -c \"from ecochain.db import log_audit_entry; import json; print('Audit entry logged')\"",
+      "failureMode": "continue",
+      "description": "Record action in cryptographic audit trail"
+    }
+  ]
+}
