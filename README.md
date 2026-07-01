@@ -2,14 +2,52 @@
 
 ![EcoChain 24 cover banner](assets/cover_page_banner.png)
 
-EcoChain 24 is an autonomous hierarchical multi-agent auditing system for Scope 1, 2, and 3 carbon emissions tracking with cryptographic audit-trail integrity. It turns fragmented supplier, utility, and invoice data into auditable carbon disclosures that can support board reporting, compliance review, and anomaly resolution.
+EcoChain 24 is an autonomous hierarchical multi-agent auditing system for Scope 1, 2, and 3 carbon emissions tracking with cryptographic audit-trail integrity. It transforms fragmented supplier, utility, and invoice data into auditable carbon disclosures that support board-level reporting, compliance review, and anomaly resolution.
 
 ## Why EcoChain 24 matters
 
-- Automates ingestion of emissions-related records from invoices, ERP exports, and utility data.
-- Applies specialist agents to normalize, calculate, audit, and report carbon outcomes.
+- Automates the ingestion of emissions-related records from invoices, ERP exports, and utility data.
+- Uses specialist agents to normalize, calculate, audit, and report carbon outcomes.
 - Preserves a tamper-resistant audit trail through chained cryptographic hashes.
 - Supports Human-in-the-Loop review for low-confidence or anomalous records.
+
+## Prerequisites
+
+- Python 3.11 or newer
+- uv for dependency management
+- A Gemini API key from Google AI Studio
+- Git for version control and GitHub publishing
+
+## Quick start
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/<your-username>/EcoChain24.git
+   cd EcoChain24
+   ```
+
+2. Create a local environment file:
+   ```env
+   GOOGLE_API_KEY=your_gemini_api_key_here
+   GOOGLE_GENAI_USE_VERTEXAI=False
+   GEMINI_MODEL=gemini-3.5-flash
+   ```
+
+3. Install Python dependencies:
+   ```bash
+   make install
+   ```
+
+4. Run the demo workflow:
+   ```bash
+   python run_demo.py
+   ```
+
+5. Launch the interactive playground:
+   ```bash
+   make playground
+   ```
+   The UI will open at http://localhost:18081.
 
 ## Workflow diagram
 
@@ -71,45 +109,78 @@ graph TD
 - Compliance and recommendation agents: prepare risk notices and action guidance.
 - Report agent: produces board-ready reporting outputs and evidence summaries.
 
-## Quick start
+## Security and MCP design
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/<your-username>/EcoChain24.git
-   cd EcoChain24
-   ```
+- Security checkpoint: scrubs PII, detects prompt injection attempts, and writes structured audit events.
+- MCP server: exposes tools for factor lookup, document parsing, normalization, and audit logging.
+- Human-in-the-Loop review: low-confidence or high-risk records are paused for review before final reporting.
 
-2. Configure your environment:
-   Create a `.env` file in the project root:
-   ```env
-   GOOGLE_API_KEY=your_gemini_api_key_here
-   GOOGLE_GENAI_USE_VERTEXAI=False
-   GEMINI_MODEL=gemini-3.5-flash
-   ```
+## How to run
 
-3. Install dependencies:
-   ```bash
-   make install
-   ```
+- Start the playground UI:
+  ```bash
+  make playground
+  ```
+- Start the local server:
+  ```bash
+  make run
+  ```
+- Run the automated tests:
+  ```bash
+  make test
+  ```
 
-4. Run the demo workflow:
-   ```bash
-   python run_demo.py
-   ```
+## Sample test cases
 
-5. Launch the interactive playground:
-   ```bash
-   make playground
-   ```
-   The UI will open at http://localhost:18081.
+### Case 1: Ingestion of Scope 1 diesel fuel
+- Input:
+  ```json
+  {
+    "supplier_id": "sup_alpha_logistics",
+    "period": "2024-Q1",
+    "activity_type": "fuel",
+    "quantity": 1200.0,
+    "unit": "L",
+    "country": "US",
+    "details": {"fuel_type": "diesel"}
+  }
+  ```
+- Expected behavior: the orchestrator routes the record through ingestion and calculation, then stores a Scope 1 emission result in the database.
+- Check: the audit log shows calculation events and the report contains the new emissions record.
 
-## Run the test suite
+### Case 2: Supplier Tier D conflict mitigation
+- Input: a record from a supplier flagged as low trust or Tier D with a conflicting verification status.
+- Expected behavior: the workflow pauses for review, downgrades confidence, routes the case to compliance, and raises an alert.
+- Check: the anomaly and compliance pathways are triggered and the record remains quarantined until reviewed.
 
-```bash
-make test
-```
+### Case 3: Scope 2 renewable electricity evaluation
+- Input:
+  ```json
+  {
+    "supplier_id": "sup_green_energy",
+    "period": "2024-Q1",
+    "activity_type": "electricity",
+    "quantity": 5500.0,
+    "unit": "kWh",
+    "details": {"tariff_type": "renewable"}
+  }
+  ```
+- Expected behavior: the calculation agent applies dual Scope 2 reporting logic and produces a market-based result of zero for renewable EAC coverage.
+- Check: the generated report reflects the correct location-based and market-based values.
 
-The test suite verifies database initialization, audit-chain integrity, token authorization, and end-to-end orchestration.
+## Troubleshooting
+
+1. Gemini API 404 or quota errors
+   - Cause: stale model selection or exceeded free-tier limits.
+   - Fix: set `GEMINI_MODEL` to a live value such as `gemini-3.5-flash` or `gemini-3.5-flash-lite`.
+
+2. Duplicate records after repeated runs
+   - Cause: repeated ingestion with path normalization issues.
+   - Fix: rerun `python run_demo.py` to reset the demo database.
+
+3. Port conflicts on 18081 or 8090
+   - Cause: a previous playground or server process is still running.
+   - Fix: stop the existing process and restart the app.
 
 ## Project structure
 
@@ -119,7 +190,14 @@ The test suite verifies database initialization, audit-chain integrity, token au
 - [dashboard/](dashboard/) contains a lightweight local dashboard view.
 - [assets/](assets/) contains the cover banner and architecture diagram.
 
-## GitHub publishing
+## Assets
+
+- Cover page banner: [assets/cover_page_banner.png](assets/cover_page_banner.png)
+- Solution architecture diagram: [assets/architecture_diagram.png](assets/architecture_diagram.png)
+- Demo narration: [DEMO_SCRIPT.txt](DEMO_SCRIPT.txt)
+- Submission write-up: [SUBMISSION_WRITEUP.md](SUBMISSION_WRITEUP.md)
+
+## Push to GitHub
 
 ```bash
 git init
@@ -132,170 +210,13 @@ git push -u origin main
 
 > Never commit your `.env` file. Keep secrets out of GitHub.
 
-## Demo assets
-
-- Cover page banner: [assets/cover_page_banner.png](assets/cover_page_banner.png)
-- Solution architecture diagram: [assets/architecture_diagram.png](assets/architecture_diagram.png)
-- Demo narration: [DEMO_SCRIPT.txt](DEMO_SCRIPT.txt)
-- Submission write-up: [SUBMISSION_WRITEUP.md](SUBMISSION_WRITEUP.md)
-
-## Solution Architecture
-
-```mermaid
-graph TD
-    Orchestrator[Orchestrator Agent]
-    Ingest[Ingestion Agent]
-    Calc[Calculation Agent]
-    Audit[Supplier Audit Agent]
-    Anomaly[Anomaly Detection Agent]
-    Comply[Compliance Agent]
-    Recommend[Recommendation Agent]
-    Report[Report Agent]
-    Security[Security Checkpoint]
-
-    Orchestrator --> Security
-    Security --> Ingest
-    Security --> Calc
-    Security --> Audit
-    Security --> Anomaly
-    Security --> Comply
-    Security --> Recommend
-    Security --> Report
-
-    Ingest -->|Writes| DB[(SQLite Database)]
-    Calc -->|Reads/Writes| DB
-    Audit -->|Reads/Writes| DB
-    Anomaly -->|Reads/Writes| DB
-    Comply -->|Reads/Writes| DB
-    Recommend -->|Reads/Writes| DB
-    Report -->|Generates Reports| DB
-
-    subgraph MCP Server
-        Tools[Factor Lookup | Document Parser | Normalizer | Audit Logger | Alert Dispatch]
-    end
-
-    Ingest -->|Calls Tools| Tools
-    Calc -->|Calls Tools| Tools
-```
-
----
-
-## How to Run
-
-- **Start Playground Dev UI**:
-  ```bash
-  make playground
-  ```
-- **Start Local Server Mode**:
-  ```bash
-  make run
-  ```
-- **Run Automated Tests**:
-  ```bash
-  make test
-  ```
-
----
-
-## Sample Test Cases
-
-### Case 1: Ingestion of Scope 1 Diesel Fuel
-- **Input**:
-  ```json
-  {
-    "supplier_id": "sup_alpha_logistics",
-    "period": "2024-Q1",
-    "activity_type": "fuel",
-    "quantity": 1200.0,
-    "unit": "L",
-    "country": "US",
-    "details": {"fuel_type": "diesel"}
-  }
-  ```
-- **Expected Behaviour**: The Orchestrator routes the record to the `IngestionAgent` to normalize it, then the `CalculationAgent` computes emissions using the diesel factor ($1200 \times 2.68 = 3216$ kg CO₂e) and writes a Scope 1 record to the database.
-- **Check**: Audit log displays `calculation_start` and `calculation_success` events for the record.
-
-### Case 2: Supplier Tier D Conflict Mitigation
-- **Input**: Ingesting a verified activity record from a supplier profile labeled as `Tier D` (low trust status).
-- **Expected Behaviour**: The Orchestrator detects a mismatch between the "verified" status claim and the `Tier D` supplier status. It triggers an automated override: freezing the record, downgrading its confidence score to `0.40`, routing it to Compliance, and dispatching an alert.
-- **Check**: Log displays `logical_conflict_detected` followed by `logical_conflict_mitigated`.
-
-### Case 3: Scope 2 Electricity Renewable EAC Evaluation
-- **Input**: Electricity activity record marked with tariff type "renewable":
-  ```json
-  {
-    "supplier_id": "sup_green_energy",
-    "period": "2024-Q1",
-    "activity_type": "electricity",
-    "quantity": 5500.0,
-    "unit": "kWh",
-    "details": {"tariff_type": "renewable"}
-  }
-  ```
-- **Expected Behaviour**: Calculation agent applies dual Scope 2 reporting (location-based grid emissions calculation vs. market-based renewable EAC calculation). Market-based emissions are computed as `0.00 t CO₂e`.
-- **Check**: Generated reports reflect a `0.00` market-based footprint for Purchased Electricity.
-
----
-
-## Troubleshooting
-
-1. **Gemini API 404 or Quota Error**
-   - *Cause*: Stale model version or exceeded free tier limits.
-   - *Fix*: Check that `GEMINI_MODEL` is set to a live model (e.g., `gemini-3.5-flash` or `gemini-3.5-flash-lite` for higher daily limits).
-2. **Duplicate Entry Values on Repeated Runs**
-   - *Cause*: Document files parsed multiple times with absolute vs. relative paths.
-   - *Fix*: The system automatically normalizes paths to their basenames. If manual entries are duplicated, run `python run_demo.py` to reset the database.
-3. **Port Conflicts (18081 / 8090)**
-   - *Cause*: Playground process left running in the background.
-   - *Fix* (Windows PowerShell):
-     ```powershell
-     Get-Process -Id (Get-NetTCPConnection -LocalPort 18081, 8090 -ErrorAction SilentlyContinue).OwningProcess | Stop-Process -Force
-     ```
-
----
-
-## Assets
-
-### Cover Page Banner
-![Cover Page Banner](assets/cover_page_banner.png)
-
-### Solution Architecture Diagram
-![Solution Architecture Diagram](assets/architecture_diagram.png)
-
----
-
-## Push to GitHub
-
-1. Create a new repo at https://github.com/new
-   - Name: EcoChain24
-   - Visibility: Public or Private
-   - Do NOT initialize with README (you already have one)
-
-2. In your terminal, navigate into your project folder:
-   ```bash
-   cd EcoChain24
-   git init
-   git add .
-   git commit -m "Initial commit: EcoChain24 ADK agent"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/EcoChain24.git
-   git push -u origin main
-   ```
-
-3. Verify .gitignore includes:
-   ```text
-   .env          ← your API key — must NEVER be pushed
-   .venv/
-   __pycache__/
-   *.pyc
-   .adk/
-   ```
-
-⚠ NEVER push .env to GitHub. Your API key will be exposed publicly.
-
 ## Demo Script
 
-The spoken presentation narration script is available at [DEMO_SCRIPT.txt](file:///c:/Users/HP/OneDrive/Documents/EcoChain24/DEMO_SCRIPT.txt).
-#   E c o C h a i n - 2 4 
- 
- 
+The spoken presentation narration script is available at [DEMO_SCRIPT.txt](DEMO_SCRIPT.txt).
+
+Use it during the live walkthrough to cover:
+- the problem statement and target audience
+- the agent workflow and architecture
+- the three sample test cases
+- the security, MCP, and governance story
+- the closing impact and next-step discussion
