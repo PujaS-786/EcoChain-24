@@ -252,4 +252,5 @@ Use it during the live walkthrough to cover:
 - the agent workflow and architecture
 - the three sample test cases
 - the security, MCP, and governance story
-- the closing impact and next-step discussion
+- the closing impact
+- next-stage discussion
